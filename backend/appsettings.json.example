@@ -3,7 +3,7 @@
     "Secret": "secret"
   },
   "ConnectionStrings": {
-    "MainContext": "Server=SERVER-PC;Database=ContohDB;Trusted_Connection=True;TrustServerCertificate=True;"
+    "MainContext": "Server=SERVER-PC;Database=DB_NAME;Trusted_Connection=True;TrustServerCertificate=True;"
   },
   "Logging": {
     "LogLevel": {
