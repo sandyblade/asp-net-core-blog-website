@@ -35,4 +35,5 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
-Uploadsappsettings.json 
+Uploads
+appsettings.json 
