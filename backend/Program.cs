@@ -1,15 +1,40 @@
-var builder = WebApplication.CreateBuilder(args);
+/**
+ * This file is part of the Sandy Andryanto Blog Application.
+ *
+ * @author     Sandy Andryanto <sandy.andryanto.blade@gmail.com>
+ * @copyright  2024
+ *
+ * For the full copyright and license information,
+ * please view the LICENSE.md file that was distributed
+ * with this source code.
+ */
 
-// Add services to the container.
 
-builder.Services.AddControllers();
+using backend.Models;
+using backend.Models.Repositories.Interfaces;
 
-var app = builder.Build();
+namespace backend
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
 
-// Configure the HTTP request pipeline.
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseKestrel(opt => {
+                        var sp = opt.ApplicationServices;
+                        using (var scope = sp.CreateScope())
+                        {
+                            var user = scope.ServiceProvider.GetService<IUserRepository>();
+                            new AppSeed(user).run();
+                        }
+                    });
+                });
+    }
+}
