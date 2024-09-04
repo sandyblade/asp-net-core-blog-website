@@ -1,4 +1,10 @@
 {
+  "AppSettings": {
+    "Secret": "secret"
+  },
+  "ConnectionStrings": {
+    "MainContext": "Server=SERVER-PC;Database=ContohDB;Trusted_Connection=True;TrustServerCertificate=True;"
+  },
   "Logging": {
     "LogLevel": {
       "Default": "Information",
