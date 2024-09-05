@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 namespace backend.Models.Entities
 {
     [Index(nameof(UserId))]
+    [Index(nameof(Image))]
     [Index(nameof(Title))]
     [Index(nameof(Slug))]
     [Index(nameof(Description))]
@@ -34,6 +35,9 @@ namespace backend.Models.Entities
         [DisplayName("User")]
         public long UserId { get; set; }
         public required virtual User User { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
+        public string? Image { get; set; } = null;
 
         [Required]
         [Column(TypeName = "varchar(255)")]
