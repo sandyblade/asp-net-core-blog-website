@@ -17,14 +17,13 @@ namespace backend.Models.Repositories.Interfaces
 {
     public interface IArticleRepository
     {
-        Article GetBySlug(String Slug);
-
+        Article GetById(long Id);
+        Article GetBySlug(String Slug, long Id);
         Article CreateOrUpdate(User User, ArticleFormDTO model, long Id);
-
         void Delete(User user, long Id);
-
+        void Upload(long Id, User User, String Image);
         List<Article> GetByUser(User user, FilterDTO filter);
-
         List<Article> GetPublsihed(FilterDTO filter);
+        String GenerateSlug(string phrase);
     }
 }

@@ -15,6 +15,7 @@ using backend.Models.Entities;
 using backend.Models.Repositories.Interfaces;
 using System.Text.RegularExpressions;
 using System.Linq.Dynamic.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models.Repositories.Implements
 {
@@ -22,18 +23,17 @@ namespace backend.Models.Repositories.Implements
     {
         private readonly AppDbContext _db;
         private readonly IActivityRepository _activityRepository;
-        private readonly INotificationRepository _notificationRepository;
+        
 
-        public ArticleService(AppDbContext db, IActivityRepository activityRepository, INotificationRepository notificationRepository)
+        public ArticleService(AppDbContext db, IActivityRepository activityRepository)
         {
             _db = db;
             _activityRepository = activityRepository;
-            _notificationRepository = notificationRepository;
         }
 
-        public Article GetBySlug(String Slug)
+        public Article GetBySlug(String Slug, long Id)
         {
-            Article article = _db.Article.Where(x => x.Slug == Slug).FirstOrDefault();
+            Article article = _db.Article.Include(x=> x.User).Where(x => x.Slug == Slug && x.Id != Id).FirstOrDefault();
             return article == null ? null : article;
         }
 
@@ -136,7 +136,24 @@ namespace backend.Models.Repositories.Implements
             return data.OrderBy(filter.OrderBy + " " + filter.OrderDir).Skip(filter.Offset).Take(filter.Limit).ToList();
         }
 
-        private  string GenerateSlug(string phrase)
+        public Article GetById(long Id)
+        {
+            Article article = _db.Article.Where(x => x.Id == Id).FirstOrDefault();
+            return article == null ? null : article;
+        }
+
+        public void Upload(long Id, User User, String Image)
+        {
+            Article article = _db.Article.Where(x => x.Id == Id).FirstOrDefault();
+            article.Image = Image;
+
+            _db.Update(article);
+            _db.SaveChanges();
+
+            _activityRepository.SaveActivity(User, "Upload Article Image", "The user uploaded article with title " + article.Title);
+        }
+
+        public string GenerateSlug(string phrase)
         {
             string str = RemoveAccent(phrase).ToLower();
             str = Regex.Replace(str, @"[^a-z0-9\s-]", ""); // invalid chars           

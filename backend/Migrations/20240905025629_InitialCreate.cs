@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,6 +73,7 @@ namespace backend.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Image = table.Column<string>(type: "varchar(255)", nullable: true),
                     Title = table.Column<string>(type: "varchar(255)", nullable: false),
                     Slug = table.Column<string>(type: "varchar(255)", nullable: false),
                     Description = table.Column<string>(type: "varchar(255)", nullable: false),
@@ -213,6 +214,11 @@ namespace backend.Migrations
                 name: "IX_Article_Description",
                 table: "Article",
                 column: "Description");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Article_Image",
+                table: "Article",
+                column: "Image");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Article_Slug",

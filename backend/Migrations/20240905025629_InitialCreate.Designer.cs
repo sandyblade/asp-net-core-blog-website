@@ -12,8 +12,8 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240904044952_init")]
-    partial class init
+    [Migration("20240905025629_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
@@ -116,6 +119,8 @@ namespace backend.Migrations
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("Description");
+
+                    b.HasIndex("Image");
 
                     b.HasIndex("Slug");
 

@@ -27,6 +27,7 @@ namespace backend.Models.DTO
         public long Id { get; set; }
         public required String Title { get; set; }
         public required String Description { get; set; }
+        public String? Content { get; set; } = null;
         public String? Image { get; set; } = null;
 
         public List<String> Categories = new List<String>();

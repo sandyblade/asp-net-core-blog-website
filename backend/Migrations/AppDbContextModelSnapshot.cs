@@ -82,6 +82,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
@@ -113,6 +116,8 @@ namespace backend.Migrations
                     b.HasIndex("CreatedAt");
 
                     b.HasIndex("Description");
+
+                    b.HasIndex("Image");
 
                     b.HasIndex("Slug");
 
