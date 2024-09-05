@@ -44,8 +44,8 @@ namespace backend.Controllers
                     Title = x.Title,
                     Description = x.Description,
                     Image = x.Image,
-                    Categories = String.IsNullOrWhiteSpace(x.Categories) ? x.Categories.Split(',').ToList() : new List<String>(),
-                    Tags = String.IsNullOrWhiteSpace(x.Tags) ? x.Tags.Split(',').ToList() : new List<String>(),
+                    Categories = !String.IsNullOrWhiteSpace(x.Categories) ? x.Categories.Split(',').ToList() : new List<String>(),
+                    Tags = !String.IsNullOrWhiteSpace(x.Tags) ? x.Tags.Split(',').ToList() : new List<String>(),
                     CreatedAt = x.CreatedAt,
                     UpdatedAt = x.UpdatedAt,
                     User = new UserDetailDTO()
@@ -77,8 +77,8 @@ namespace backend.Controllers
                     Title = x.Title,
                     Description = x.Description,
                     Image = x.Image,
-                    Categories = String.IsNullOrWhiteSpace(x.Categories) ? x.Categories.Split(',').ToList() : new List<String>(),
-                    Tags = String.IsNullOrWhiteSpace(x.Tags) ? x.Tags.Split(',').ToList() : new List<String>(),
+                    Categories = !String.IsNullOrWhiteSpace(x.Categories) ? x.Categories.Split(',').ToList() : new List<String>(),
+                    Tags = !String.IsNullOrWhiteSpace(x.Tags) ? x.Tags.Split(',').ToList() : new List<String>(),
                     CreatedAt = x.CreatedAt,
                     UpdatedAt = x.UpdatedAt,
                     User = new UserDetailDTO()
