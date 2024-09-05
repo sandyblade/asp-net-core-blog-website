@@ -1,4 +1,5 @@
-﻿/**
+﻿
+/**
  * This file is part of the Sandy Andryanto Blog Application.
  *
  * @author     Sandy Andryanto <sandy.andryanto.blade@gmail.com>
@@ -11,21 +12,9 @@
 
 using backend.Models.Repositories.Interfaces;
 
-namespace backend.Models
+namespace backend.Models.Repositories.Implements
 {
-    public class AppSeed
+    public class ViewerService : IViewerRepository
     {
-        private readonly IUserRepository _userRepository;
-
-        public AppSeed(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
-        public void run()
-        {
-            _userRepository.CreateInitial();
-        }
-
     }
 }

@@ -13,6 +13,7 @@ using backend.Models;
 using backend.Models.DTO;
 using backend.Models.Repositories.Implements;
 using backend.Models.Repositories.Interfaces;
+using backend.Configs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -39,7 +40,12 @@ namespace backend
                 .EnableSensitiveDataLogging()
            );
            services.Configure<SettingDTO>(Configuration.GetSection("AppSettings"));
+           services.AddScoped<IActivityRepository, ActivityService>();
+           services.AddScoped<IArticleRepository, ArticleService>();
+           services.AddScoped<ICommentRepository, CommentService>();
+           services.AddScoped<INotificationRepository, NotificationService>();
            services.AddScoped<IUserRepository, UserService>();
+           services.AddScoped<IViewerRepository, ViewerService>();
            services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -72,7 +78,7 @@ namespace backend
             app.UseAuthorization();
 
             // custom jwt auth middleware
-            // app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(x => x.MapControllers());
         }
 
