@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using backend.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models.DTO
 {
@@ -38,4 +39,25 @@ namespace backend.Models.DTO
         public Nullable<System.DateTime> UpdatedAt { get; set; }
 
     }
+
+    public class ArticleCommentDTO
+    {
+        public Nullable<long> ParentId { get; set; } = null;
+
+        [Required(ErrorMessage = "Body is required")]
+        [MinLength(10)]
+        public required String Body { get; set; }
+    }
+
+    public class ArticleCommentListDTO
+    {
+        public long Id { get; set; }
+        public Nullable<long> ParentId { get; set; } = null;
+        public String Body { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public UserDetailDTO? User { get; set; } = null;
+
+        public List<ArticleCommentListDTO> Children = new List<ArticleCommentListDTO>();
+    }
+
 }

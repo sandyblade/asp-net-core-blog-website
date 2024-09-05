@@ -195,10 +195,11 @@ namespace backend.Controllers
 
             for(int i = 1; i <= max; i++)
             {
-                payloads.Add(Faker.Lorem.Sentence(2));
+                payloads.Add(Faker.Lorem.Sentence(1));
             }
 
             payloads = payloads.Distinct().ToList();
+            payloads.Sort();
 
             return Ok(new { status = true, data = payloads, message = "ok" });
         }

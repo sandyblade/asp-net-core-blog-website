@@ -111,7 +111,7 @@ namespace backend.Models.Repositories.Implements
         public List<Article> GetByUser(User user, FilterDTO filter)
         {
             var attr = typeof(Article).GetProperty(filter.OrderBy);
-            var data = _db.Article.AsQueryable();
+            var data = _db.Article.Include(x => x.User).AsQueryable();
             data = data.Where(x => x.User == user);
 
             if (!String.IsNullOrWhiteSpace(filter.Search))
@@ -125,7 +125,7 @@ namespace backend.Models.Repositories.Implements
         public List<Article> GetPublsihed(FilterDTO filter)
         {
             var attr = typeof(Article).GetProperty(filter.OrderBy);
-            var data = _db.Article.AsQueryable();
+            var data = _db.Article.Include(x => x.User).AsQueryable();
             data = data.Where(x => x.Status == 1);
 
             if (!String.IsNullOrWhiteSpace(filter.Search))
